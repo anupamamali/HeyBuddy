@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <meta charset='utf-8' />
+   <link rel="stylesheet" src="style.css" />
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+   <script src="https://apis.google.com/js/client.js"></script>
+   <script type="text/javascript">
+     var PROJECT_ID = 'test';
+     var CLIENT_ID = '631073150177-q14odse2dsgo2s60cipsv99912tso28c.apps.googleusercontent.com';
+     var API_KEY = 'AIzaSyDwLbPz97bxGOv5X_0x8QxPD-JIkhibDyU';
+     var SCOPES = 'https://www.googleapis.com/auth/compute';
+
+     /**
+      * Authorize Google Compute Engine API.
+      */
+     function authorization() {
+       gapi.client.setApiKey(API_KEY);
+       gapi.auth.authorize({
+         client_id: CLIENT_ID,
+         scope: SCOPES,
+         immediate: false
+       }, function(authResult) {
+            if (authResult && !authResult.error) {
+              window.alert('Auth was successful!');
+            } else {
+              window.alert('Auth was not successful');
+            }
+          }
+       );
+     }
+
+     /**
+      * Driver for sample application.
+      */
+     //$(window).load(authorization);
+    </script>
+    <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '3684332351675829',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v10.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+  </head>
+  <body>
+  <form >
+    <input type="button" id="signinButton" value="sign in to google" onclick="authorization()"/>    </form>
+  </body>
+</html>
