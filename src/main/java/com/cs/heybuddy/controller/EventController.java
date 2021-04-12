@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cs.heybuddy.model.Event;
 import com.cs.heybuddy.service.IEventService;
 
+import java.util.List;
+
 @RestController
 public class EventController {
 	
@@ -42,6 +44,11 @@ public class EventController {
 		 return ResponseEntity.status(HttpStatus.OK)
 					.body( eventService.getEvent(Long.parseLong(id)));
 
+	}
+
+	@GetMapping("/event")
+	public List<Event> getAllEvent() {
+		return  eventService.getAllEvent();
 	}
 	
 	@DeleteMapping("/event/{id}")

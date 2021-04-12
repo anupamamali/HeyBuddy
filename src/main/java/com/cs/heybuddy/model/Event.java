@@ -2,15 +2,9 @@ package com.cs.heybuddy.model;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "EVENTS")
@@ -34,9 +28,9 @@ public class Event implements Serializable{
     private String name;
     
     @Column(name = "createdon")
-    private ZonedDateTime createdon;
-    
-    @OneToOne	
+    private Date createdon;
+
+	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="createdby")
     private User createdby;
     
@@ -73,11 +67,11 @@ public class Event implements Serializable{
 		this.name = name;
 	}
 
-	public ZonedDateTime getCreatedon() {
+	public Date getCreatedon() {
 		return createdon;
 	}
 
-	public void setCreatedon(ZonedDateTime createdon) {
+	public void setCreatedon(Date createdon) {
 		this.createdon = createdon;
 	}
 
