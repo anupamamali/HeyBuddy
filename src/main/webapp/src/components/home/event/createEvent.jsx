@@ -7,10 +7,12 @@ const CreateEvent = () => {
     const [event, setEvent] = useState({
         name: "",
         type: "",
+        date:"",
+        description:""
     });
 
 
-    const { name, type } = event;
+    const { name, type ,date,description} = event;
     const onInputChange = e => {
         setEvent({ ...event, [e.target.name]: e.target.value });
     };
@@ -36,6 +38,26 @@ const CreateEvent = () => {
                             placeholder="Enter Event Name"
                             name="name"
                             value={name}
+                            onChange={e => onInputChange(e)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="date"
+                            className="form-control form-control-lg"
+                            placeholder="Enter Date"
+                            name="date"
+                            value={name}
+                            onChange={e => onInputChange(e)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="textarea"
+                            className="form-control form-control-lg"
+                            placeholder="Enter description"
+                            name="description"
+                            value={description}
                             onChange={e => onInputChange(e)}
                         />
                     </div>
