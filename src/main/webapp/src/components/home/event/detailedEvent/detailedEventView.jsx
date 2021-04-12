@@ -27,7 +27,7 @@ const DetailedEventView = () => {
                 <li className="list-group-item">name: {event.name}</li>
                 <li className="list-group-item">type: {event.type}</li>
                 <li className="list-group-item">Discription: {event.description}</li>
-                <li className="list-group-item">Event Date: {event.createdon}</li>
+                <li className="list-group-item">Event Date: {event.createdOn}</li>
             </ul>
         </div>
     );
