@@ -1,0 +1,16 @@
+.home-event-view-container {
+    padding-top: 150px;
+    background-color: #b7f390;
+}
+
+.single-event-view-logo {
+    height: 150px;
+    width: 150px;
+}
+
+.create-event{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-color: #b7f390;
+}
