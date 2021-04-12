@@ -7,12 +7,12 @@ const CreateEvent = () => {
     const [event, setEvent] = useState({
         name: "",
         type: "",
-        createdon:"",
+        createdOn:"",
         description:""
     });
 
 
-    const { name, type ,createdon,description} = event;
+    const { name, type ,createdOn,description} = event;
     const onInputChange = e => {
         setEvent({ ...event, [e.target.name]: e.target.value });
     };
@@ -23,7 +23,7 @@ const CreateEvent = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
-        await axios.post("/event", {...event, createdby:{
+        await axios.post("/event", {...event, createdBy:{
                 "name": "xyz"
             }});
         history.push("/event");
@@ -48,8 +48,8 @@ const CreateEvent = () => {
                             type="date"
                             className="form-control form-control-lg"
                             placeholder="Enter Date"
-                            name="createdon"
-                            value={createdon}
+                            name="createdOn"
+                            value={createdOn}
                             onChange={e => onInputChange(e)}
                         />
                     </div>
