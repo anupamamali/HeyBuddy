@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
 @Table(name = "GROUP_HEYBUDDY")
 public class Group implements Serializable {
 
+	
 	/**
 	 * 
 	 */
@@ -46,19 +47,19 @@ public class Group implements Serializable {
     
     @Column(name = "status")
     private Boolean status;
-     
-	
-    @OneToOne	
+
+
+    @OneToOne
     @JoinColumn(name ="createdBy")
     private User createdBy;
     
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-      name = "USERS_GROUPS", 
-      joinColumns = @JoinColumn(name = "groupId"), 
+      name = "USERS_GROUPS",
+      joinColumns = @JoinColumn(name = "groupId"),
       inverseJoinColumns = @JoinColumn(name = "Id"))
     private Set<User> users;
-    
+
 	public Long getGroupId() {
 		return groupId;
 	}
@@ -91,6 +92,7 @@ public class Group implements Serializable {
 		this.name = name;
 	}
 
+	
 
 	public Boolean getStatus() {
 		return status;
@@ -124,7 +126,4 @@ public class Group implements Serializable {
 		this.users = users;
 	}
 
-	
-    
-    
 }
