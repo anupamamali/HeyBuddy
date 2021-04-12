@@ -5,12 +5,8 @@ import Adventure from './images/adventure.png'
 import Cause from './images/cause.png'
 import Sport from './images/sport.png'
 import {Link} from "react-router-dom";
+import {imageMapper,EVENT_TYPE} from "./imageMapper"
 
-const EVENT_TYPE = {
-    ADVENTURE: "Adventure",
-    SPORT: "Sport",
-    CAUSE: "Cause"
-}
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -22,16 +18,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const imageMapper = (type) => {
-    switch (type) {
-        case EVENT_TYPE.ADVENTURE :
-            return Adventure;
-        case EVENT_TYPE.CAUSE :
-            return Cause;
-        case EVENT_TYPE.SPORT :
-            return Sport;
-    }
-}
 
 
 const SingleEventView = ({data}) => {

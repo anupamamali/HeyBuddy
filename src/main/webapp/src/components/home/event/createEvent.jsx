@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios'
 import { useHistory }  from "react-router-dom";
+import {EVENT_TYPE} from "./imageMapper"
 
 const CreateEvent = () => {
     let history = useHistory();
@@ -69,9 +70,14 @@ const CreateEvent = () => {
                         </div>
                         <select className="custom-select" id="inputGroupSelect01" value={type} onChange={e=>onSelectChange(e)}>
                             {/*<option selected>Type...</option>*/}
-                            <option value="Adventure">Adventure</option>
-                            <option value="Cause">Cause</option>
-                            <option value="Sport">Sport</option>
+                            <option value={EVENT_TYPE.ADVENTURE}>Adventure</option>
+                            <option value={EVENT_TYPE.CAUSE}>Cause</option>
+                            <option value={EVENT_TYPE.SPORT}>Sport</option>
+                            <option value={EVENT_TYPE.DANCE}>Dance</option>
+                            <option value={EVENT_TYPE.LEARNING}>Learning</option>
+                            <option value={EVENT_TYPE.PARTY}>Party</option>
+                            <option value={EVENT_TYPE.SHOPING}>Shoping</option>
+                            <option value={EVENT_TYPE.TOUR}>Tour</option>
                         </select>
                     </div>
 
