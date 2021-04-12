@@ -43,6 +43,8 @@ public class EventController {
 //			group.setCreatedon(new Date());
 
 			ResponseEntity<Group> result = restTemplate.postForEntity(uri, group, Group.class);
+			newevent.setGroup(result.getBody());
+			eventService.updateEvent(newevent);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(newevent);
 
