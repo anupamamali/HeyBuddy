@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 async function loginUser(credentials) {
-    const res = await axios.get(`http://localhost:3006/token`);
+    const res = await axios.get(`/login`);
     return res.data;
 }
 
