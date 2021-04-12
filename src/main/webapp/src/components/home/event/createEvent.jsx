@@ -7,10 +7,12 @@ const CreateEvent = () => {
     const [event, setEvent] = useState({
         name: "",
         type: "",
+        createdon:"",
+        description:""
     });
 
 
-    const { name, type } = event;
+    const { name, type ,createdon,description} = event;
     const onInputChange = e => {
         setEvent({ ...event, [e.target.name]: e.target.value });
     };
@@ -21,13 +23,15 @@ const CreateEvent = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
-        await axios.post("http://localhost:3006/event", event);
+        await axios.post("/event", {...event, createdby:{
+                "name": "xyz"
+            }});
         history.push("/event");
     };
     return (
         <div className="container">
             <div className="w-75 mx-auto shadow p-5">
-                <h2 className="text-center mb-4">Add A User</h2>
+                <h2 className="text-center mb-4">Event Information</h2>
                 <form onSubmit={e => onSubmit(e)}>
                     <div className="form-group">
                         <input
@@ -36,6 +40,26 @@ const CreateEvent = () => {
                             placeholder="Enter Event Name"
                             name="name"
                             value={name}
+                            onChange={e => onInputChange(e)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="date"
+                            className="form-control form-control-lg"
+                            placeholder="Enter Date"
+                            name="createdon"
+                            value={createdon}
+                            onChange={e => onInputChange(e)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="textarea"
+                            className="form-control form-control-lg"
+                            placeholder="Enter description"
+                            name="description"
+                            value={description}
                             onChange={e => onInputChange(e)}
                         />
                     </div>
@@ -52,7 +76,7 @@ const CreateEvent = () => {
                     </div>
 
 
-                    <button className="btn btn-primary btn-block">Add User</button>
+                    <button className="btn btn-primary btn-block">Create Event</button>
                 </form>
             </div>
         </div>

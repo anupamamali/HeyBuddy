@@ -13,7 +13,7 @@ const DetailedEventView = () => {
         loadUser();
     }, []);
     const loadUser = async () => {
-        const res = await axios.get(`http://localhost:3006/event/${id}`);
+        const res = await axios.get(`${id}`);
         setEvent(res.data);
     };
     return (

@@ -19,7 +19,7 @@ function EventView() {
     const [events, setEvents] = useState([]);
 
     const loadEvents = async () => {
-        const res = await axios.get(`http://localhost:3006/event`);
+        const res = await axios.get(`/event`);
         setEvents(res.data);
     }
     useEffect(() => {
