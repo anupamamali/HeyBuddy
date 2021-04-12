@@ -2,15 +2,21 @@ package com.cs.heybuddy.model;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "COMMENTS")
@@ -24,8 +30,6 @@ public class Comment implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long commentId;
-	
-	
     
     @Column(name = "description", length = 500)
     private String description;
@@ -36,16 +40,22 @@ public class Comment implements Serializable{
     @Column(name = "name", length = 500)
     private String name;
     
-    @Column(name = "createdon")
-    private ZonedDateTime createdon;
+    @Column(name = "createdON")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
     
     @OneToOne	
-    @JoinColumn(name ="createdby")
-    private User createdby;
+    @JoinColumn(name ="createdBy")
+    private User createdBy;
+    
     
     @Column(name = "status", nullable = false)
     private Boolean status;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "eventId", nullable = false)
+    private Event event;
+    
 	public Long getCommentId() {
 		return commentId;
 	}
@@ -79,22 +89,7 @@ public class Comment implements Serializable{
 		this.name = name;
 	}
 
-	public ZonedDateTime getCreatedon() {
-		return createdon;
-	}
-
-	public void setCreatedon(ZonedDateTime createdon) {
-		this.createdon = createdon;
-	}
-
-	public User getCreatedby() {
-		return createdby;
-	}
-
-	public void setCreatedby(User createdby) {
-		this.createdby = createdby;
-	}
-
+	
 	public Boolean getStatus() {
 		return status;
 	}
@@ -103,7 +98,5 @@ public class Comment implements Serializable{
 		this.status = status;
 	}
     
-    
-    
-    
+      
 }

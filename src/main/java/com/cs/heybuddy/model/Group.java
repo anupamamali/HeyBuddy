@@ -2,20 +2,26 @@ package com.cs.heybuddy.model;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 @Entity
 @Table(name = "GROUP_HEYBUDDY")
 public class Group implements Serializable {
 
-	
 	/**
 	 * 
 	 */
@@ -23,7 +29,7 @@ public class Group implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long grupId;
+    private Long groupId;
 	
 	 @Column(name = "description")
     private String description;
@@ -34,23 +40,31 @@ public class Group implements Serializable {
     @Column(name = "name")
     private String name;
     
-    @Column(name = "createdon")
-    private ZonedDateTime createdon;
+    @Column(name = "createdOn")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
     
     @Column(name = "status")
     private Boolean status;
-
+     
 	
     @OneToOne	
-    @JoinColumn(name ="createdby")
-    private User createdby;
+    @JoinColumn(name ="createdBy")
+    private User createdBy;
     
-	public Long getGrupId() {
-		return grupId;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+      name = "USERS_GROUPS", 
+      joinColumns = @JoinColumn(name = "groupId"), 
+      inverseJoinColumns = @JoinColumn(name = "Id"))
+    private Set<User> users;
+    
+	public Long getGroupId() {
+		return groupId;
 	}
 
-	public void setGrupId(Long grupId) {
-		this.grupId = grupId;
+	public void setGroupId(Long grupId) {
+		this.groupId = grupId;
 	}
 
 	public String getDescription() {
@@ -77,15 +91,6 @@ public class Group implements Serializable {
 		this.name = name;
 	}
 
-	public ZonedDateTime getCreatedon() {
-		return createdon;
-	}
-
-	public void setCreatedon(ZonedDateTime createdon) {
-		this.createdon = createdon;
-	}
-
-	
 
 	public Boolean getStatus() {
 		return status;
@@ -95,13 +100,31 @@ public class Group implements Serializable {
 		this.status = status;
 	}
 
-	public User getCreatedby() {
-		return createdby;
+	public Date getCreatedOn() {
+		return createdOn;
 	}
 
-	public void setCreatedby(User createdby) {
-		this.createdby = createdby;
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
 	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	
     
     
 }

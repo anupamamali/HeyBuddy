@@ -1,10 +1,23 @@
 package com.cs.heybuddy.model;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+
 
 @Entity
 @Table(name = "EVENTS")
@@ -27,13 +40,25 @@ public class Event implements Serializable{
     @Column(name = "name")
     private String name;
     
-    @Column(name = "createdon")
-    private Date createdon;
 
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="createdby")
-    private User createdby;
+    @Column(name = "createdOn")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
     
+    @OneToOne(cascade = CascadeType.ALL)	
+    @JoinColumn(name ="createdBy")
+    private User createdBy;
+
+  
+	@OneToOne(cascade = CascadeType.ALL)	
+    @JoinColumn(name ="groupId")
+    private Group group;
+    
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "event")
+    private Set<Comment> comments;
 
 	public Long getEventId() {
 		return eventId;
@@ -67,23 +92,40 @@ public class Event implements Serializable{
 		this.name = name;
 	}
 
-	public Date getCreatedon() {
-		return createdon;
+	
+	
+	public Group getGroup() {
+		return group;
 	}
 
-	public void setCreatedon(Date createdon) {
-		this.createdon = createdon;
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
-	public User getCreatedby() {
-		return createdby;
+	public Set<Comment> getComments() {
+		return comments;
+
 	}
 
-	public void setCreatedby(User createdby) {
-		this.createdby = createdby;
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
 	}
 
+	public Date getCreatedOn() {
+		return createdOn;
+	}
 
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
 
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+   
 	    
 }
