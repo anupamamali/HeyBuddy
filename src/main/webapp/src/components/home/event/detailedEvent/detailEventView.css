@@ -1,0 +1,31 @@
+.detail-event-container{
+    background-color: #f8a488;
+}
+
+.card-view{
+    background-color: #5aa897;
+    width:100%;
+}
+
+.detailed-view-user-list{
+
+}
+
+.comment-cotainer{
+    margin-left: 20%;
+    margin-right:20%;
+}
+
+.coment-textarea{
+ width:50%;
+}
+
+/*.detailed-view-comment-list li{*/
+/*    background-color: #FFEBCD*/
+/*}*/
+.detailed-view-comment-list li:nth-child(even) {
+    background: #FFEBCD;
+}
+.detailed-view-user-list li:nth-child(even) {
+    background: #FFEBCD;
+}

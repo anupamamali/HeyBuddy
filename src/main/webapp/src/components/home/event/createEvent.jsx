@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import axios from 'axios'
 import { useHistory }  from "react-router-dom";
+import {EVENT_TYPE} from "./imageMapper"
 
 const CreateEvent = () => {
     let history = useHistory();
     const [event, setEvent] = useState({
         name: "",
         type: "",
-        createdon:"",
+        createdOn:"",
         description:""
     });
 
 
-    const { name, type ,createdon,description} = event;
+    const { name, type ,createdOn,description} = event;
     const onInputChange = e => {
         setEvent({ ...event, [e.target.name]: e.target.value });
     };
@@ -23,7 +24,7 @@ const CreateEvent = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
-        await axios.post("/event", {...event, createdby:{
+        await axios.post("/event", {...event, createdBy:{
                 "name": "xyz"
             }});
         history.push("/event");
@@ -48,8 +49,8 @@ const CreateEvent = () => {
                             type="date"
                             className="form-control form-control-lg"
                             placeholder="Enter Date"
-                            name="createdon"
-                            value={createdon}
+                            name="createdOn"
+                            value={createdOn}
                             onChange={e => onInputChange(e)}
                         />
                     </div>
@@ -69,9 +70,14 @@ const CreateEvent = () => {
                         </div>
                         <select className="custom-select" id="inputGroupSelect01" value={type} onChange={e=>onSelectChange(e)}>
                             {/*<option selected>Type...</option>*/}
-                            <option value="Adventure">Adventure</option>
-                            <option value="Cause">Cause</option>
-                            <option value="Sport">Sport</option>
+                            <option value={EVENT_TYPE.ADVENTURE}>Adventure</option>
+                            <option value={EVENT_TYPE.CAUSE}>Cause</option>
+                            <option value={EVENT_TYPE.SPORT}>Sport</option>
+                            <option value={EVENT_TYPE.DANCE}>Dance</option>
+                            <option value={EVENT_TYPE.LEARNING}>Learning</option>
+                            <option value={EVENT_TYPE.PARTY}>Party</option>
+                            <option value={EVENT_TYPE.SHOPING}>Shoping</option>
+                            <option value={EVENT_TYPE.TOUR}>Tour</option>
                         </select>
                     </div>
 

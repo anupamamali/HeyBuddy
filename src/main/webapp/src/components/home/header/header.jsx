@@ -2,10 +2,12 @@ import { AppBar, Toolbar, Typography ,makeStyles, Button} from "@material-ui/cor
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import './header.css';
+import { faSmileWink,faComments,faPeopleCarry} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const useStyles = makeStyles(() => ({
     header: {
-        backgroundColor: "#470ce7",
+        backgroundColor: "#152078",
         paddingRight: "79px",
         paddingLeft: "50px",
     },
@@ -19,16 +21,19 @@ const useStyles = makeStyles(() => ({
         display: "flex",
         justifyContent: "space-between",
     },
+    fontFamily: {
+        fontSize: "2rem",
+        fontFamily: "cursive",
+        fontWeight: "bolder",
+        lineHeight: "1.5",
+        letterSpacing: "0.00938em",
+    },
 }));
 
 const headersData = [
     {
         label: "About",
         href: "/about",
-    },
-    {
-        label: "Mentors",
-        href: "/mentors",
     },
     {
         label: "Home",
@@ -41,7 +46,7 @@ const headersData = [
 ];
 
 export default function Header({removeToken}) {
-    const { header ,menuButton,toolbar} = useStyles();
+    const { header ,menuButton,toolbar, fontFamily} = useStyles();
     const displayDesktop = () => {
         return (
             <Toolbar className={toolbar}>
@@ -51,8 +56,8 @@ export default function Header({removeToken}) {
     };
 
     const femmecubatorLogo = (
-        <Typography variant="h6" component="h1">
-            Hey Buddy
+        <Typography className={fontFamily}>
+            <FontAwesomeIcon icon={faComments}/>&nbsp;&nbsp;Hey Buddy
         </Typography>
     );
 

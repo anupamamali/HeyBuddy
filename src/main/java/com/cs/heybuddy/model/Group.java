@@ -41,15 +41,15 @@ public class Group implements Serializable {
     @Column(name = "name")
     private String name;
     
-    @Column(name = "createdOn")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn;
+//    @Column(name = "createdOn")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date createdOn;
     
     @Column(name = "status")
     private Boolean status;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="createdBy")
     private User createdBy;
     
@@ -101,14 +101,14 @@ public class Group implements Serializable {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
+//
+//	public Date getCreatedOn() {
+//		return createdOn;
+//	}
+//
+//	public void setCreatedOn(Date createdOn) {
+//		this.createdOn = createdOn;
+//	}
 
 	public User getCreatedBy() {
 		return createdBy;
