@@ -55,10 +55,7 @@ public class Event implements Serializable{
     private Group group;
     
 	
-	@OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "event")
-    private Set<Comment> comments;
+	
 
 	public Long getEventId() {
 		return eventId;
@@ -102,14 +99,7 @@ public class Event implements Serializable{
 		this.group = group;
 	}
 
-	public Set<Comment> getComments() {
-		return comments;
-
-	}
-
-	public void setComments(Set<Comment> comments) {
-		this.comments = comments;
-	}
+	
 
 	public Date getCreatedOn() {
 		return createdOn;

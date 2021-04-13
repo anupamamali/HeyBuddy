@@ -44,17 +44,16 @@ public class Comment implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
     
-    @OneToOne	
+    @OneToOne(cascade = CascadeType.ALL)	
     @JoinColumn(name ="createdBy")
     private User createdBy;
     
     
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private Boolean status;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "eventId", nullable = false)
-    private Event event;
+    @Column(name = "groupId")
+    private Long groupId;
     
 	public Long getCommentId() {
 		return commentId;

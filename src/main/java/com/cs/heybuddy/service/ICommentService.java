@@ -13,7 +13,8 @@ public interface ICommentService {
 	public Comment updateComment(Comment comment);
 	
 	public void deleteComment(Long commentId);
-	
+
+	public List<Comment> getGroupComment(Long groupId);
 	
 	
 	

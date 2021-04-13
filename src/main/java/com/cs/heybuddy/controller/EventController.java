@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cs.heybuddy.model.Event;
 import com.cs.heybuddy.service.IEventService;
+import com.cs.heybuddy.service.IGroupService;
+
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -30,27 +32,20 @@ public class EventController {
 	
 	@Autowired
 	IEventService eventService;
+	@Autowired
+	IGroupService groupService;
 
 	@PostMapping("/event")
 	public ResponseEntity<Event> createEvent(@RequestBody Event event) throws URISyntaxException {
 
 		Event newevent = eventService.createEvent(event);
 		if (newevent != null) {
-			RestTemplate restTemplate = new RestTemplate();
-			final String baseUrl = "http://localhost:" + 8081 + "/group";
-			URI uri = new URI(baseUrl);
-
 			Group group = new Group();
 			group.setName("Group_" + event.getName());
 			group.setDescription("Group_" + event.getDescription());
 			group.setCreatedBy(event.getCreatedBy());
-//			group.setCreatedon(new Date());
-//			HttpHeaders headers = new HttpHeaders();
-//		    headers.setContentType(MediaType.APPLICATION_JSON);
-//		    headers.add("Authorization", accessToken);
-//		    HttpEntity<Group> request = new HttpEntity<Group>(group, headers);
-			ResponseEntity<Group> result = restTemplate.postForEntity(uri, group, Group.class);
-			newevent.setGroup(result.getBody());
+			group = groupService.createGroup(group);
+			newevent.setGroup(group);
 			eventService.updateEvent(newevent);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(newevent);

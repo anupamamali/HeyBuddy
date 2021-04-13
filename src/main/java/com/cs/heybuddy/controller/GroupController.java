@@ -1,5 +1,7 @@
 package com.cs.heybuddy.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cs.heybuddy.model.Comment;
 import com.cs.heybuddy.model.Event;
 import com.cs.heybuddy.model.Group;
+import com.cs.heybuddy.service.ICommentService;
 import com.cs.heybuddy.service.IEventService;
 import com.cs.heybuddy.service.IGroupService;
 
@@ -21,6 +25,8 @@ public class GroupController {
 	
 	@Autowired
 	IGroupService groupService;
+	@Autowired
+	ICommentService commentService;
 
 	@PostMapping("/group")
 	public ResponseEntity<Group> createGroup(@RequestBody Group group) {
@@ -54,6 +60,12 @@ public class GroupController {
 				.body("Group deleted successfully");
 
 	}
+	@GetMapping("/group/{id}/comments")
+	public ResponseEntity<List<Comment>> getGroupComment(@PathVariable(value = "id") Long id) {
 
+		 return ResponseEntity.status(HttpStatus.OK)
+					.body( commentService.getGroupComment(id));
 
+	}
+	
 }

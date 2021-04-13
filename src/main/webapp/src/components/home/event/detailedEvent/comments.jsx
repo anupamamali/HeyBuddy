@@ -11,10 +11,12 @@ function CommentList({groupId}) {
     let [comments,setComments] = useState(commentData);
     let [tempComment,setTempComment] = useState("");
 
-    useEffect(()=>{
-
+    useEffect(async ()=>{
+        let res = await axios.get(`/group/{groupId}/comments`);
+        setComments(res.data);
+        
     },[]);
-
+    
     const singleUser = (comment) => {
         return (
             <li className="list-group-item">{comment}</li>
@@ -56,7 +58,7 @@ function CommentList({groupId}) {
             <div className="detailed-view-comment-list">
                 <ul className="list-group">
                     <li className="list-group-item list-group-item-success">Users Comments</li>
-                    {comments.map(comment => singleUser(comment))}
+                    {comments.map(comment => singleUser(comment.description))}
                 </ul>
             </div>
         </div>

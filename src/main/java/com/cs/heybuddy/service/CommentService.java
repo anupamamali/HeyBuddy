@@ -1,5 +1,7 @@
 package com.cs.heybuddy.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,10 @@ public class CommentService implements ICommentService {
 		return commentRepository.findById(commentId).get();
 	}
 
+	public List<Comment> getGroupComment(Long groupId) {
+		// TODO Auto-generated method stub
+		return commentRepository.getByGroupId(groupId);
+	}
 	@Override
 	public Comment updateComment(Comment comment) {
 		// TODO Auto-generated method stub
