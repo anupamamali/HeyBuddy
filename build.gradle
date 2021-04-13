@@ -15,9 +15,11 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile "junit:junit:4.12"
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	testCompile "org.powermock:powermock-module-junit4:2.0.2"
     testCompile "org.powermock:powermock-api-mockito2:2.0.2"
 	
