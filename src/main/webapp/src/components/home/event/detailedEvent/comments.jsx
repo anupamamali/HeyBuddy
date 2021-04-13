@@ -2,24 +2,28 @@ import React ,{useState,useEffect}from 'react';
 import axios from "axios";
 import useToken from "../../../login/useToken";
 
-function CommentList({groupId}) {
+function CommentList({group}) {
 
 
-    let commentData = ["Hello i am interasted in event",
-        "is there any fees for the event","It sounds interesting","Lets rock the party"]
-
-    let [comments,setComments] = useState(commentData);
+    // let [comments,setComments] = useState(cmt);
     let [tempComment,setTempComment] = useState("");
-
-    useEffect(async ()=>{
-        let res = await axios.get(`/group/{groupId}/comments`);
-        setComments(res.data);
-        
+    let [cmt,setCmt] = useState([]);
+    useEffect( ()=>{
+        loadCmt();
     },[]);
+
+    const loadCmt = async () => {
+
+        let res1 = await axios.get(`/group/${group.groupId}/comments`);
+
+        setCmt(res1.data);
+    }
     
     const singleUser = (comment) => {
         return (
-            <li className="list-group-item">{comment}</li>
+            <li className="list-group-item">
+            <span className="comment-user">  {comment.createdBy.name}</span>   : {comment.description}
+            </li>
         );
     };
     let LoggedUser = useToken().getLoggedUser()
@@ -37,9 +41,10 @@ function CommentList({groupId}) {
                 "name": "comment",
                 "createdOn": null,
                 "status":true,
-                "groupId": groupId
+                "groupId": group.groupId
             })
-        setComments([tempComment,...comments]);
+        loadCmt();
+
         setTempComment("");
     };
 
@@ -58,7 +63,7 @@ function CommentList({groupId}) {
             <div className="detailed-view-comment-list">
                 <ul className="list-group">
                     <li className="list-group-item list-group-item-success">Users Comments</li>
-                    {comments.map(comment => singleUser(comment.description))}
+                    {cmt.map(comment => singleUser(comment))}
                 </ul>
             </div>
         </div>

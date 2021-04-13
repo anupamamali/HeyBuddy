@@ -32,20 +32,20 @@ public class Group implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long groupId;
 	
-	 @Column(name = "description")
+	 @Column()
     private String description;
     
-    @Column(name = "type")
+    @Column()
     private String type;
     
-    @Column(name = "name")
+    @Column()
     private String name;
     
 //    @Column(name = "createdOn")
 //    @Temporal(TemporalType.TIMESTAMP)
 //    private Date createdOn;
     
-    @Column(name = "status")
+    @Column()
     private Boolean status;
 
 

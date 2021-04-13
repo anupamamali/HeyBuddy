@@ -23,7 +23,6 @@ const DetailedEventView = () => {
     const {id} = useParams();
     const classes = useStyles();
 
-
     useEffect(() => {
         loadUser();
     }, []);
@@ -57,7 +56,7 @@ const DetailedEventView = () => {
                     </Grid>
                     <Grid item xs={5}>
                         <div className="comment-cotainer text-center">
-                            <CommentList groupId={event.groupId}/>
+                            {(event && event.group) ? <CommentList  group={event.group}/> : null}
                         </div>
 
                     </Grid>

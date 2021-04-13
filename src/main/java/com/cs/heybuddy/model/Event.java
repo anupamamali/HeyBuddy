@@ -31,31 +31,31 @@ public class Event implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long eventId;
     
-    @Column(name = "description")
+    @Column()
     private String description;
     
-    @Column(name = "type")
+    @Column()
     private String type;
     
-    @Column(name = "name")
+    @Column()
     private String name;
     
 
-    @Column(name = "createdOn")
+    @Column()
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
     
     @OneToOne(cascade = CascadeType.ALL)	
-    @JoinColumn(name ="createdBy")
+    @JoinColumn()
     private User createdBy;
 
   
-	@OneToOne(cascade = CascadeType.ALL)	
+	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="groupId")
     private Group group;
     
 	
-	
+
 
 	public Long getEventId() {
 		return eventId;
@@ -99,7 +99,7 @@ public class Event implements Serializable{
 		this.group = group;
 	}
 
-	
+
 
 	public Date getCreatedOn() {
 		return createdOn;

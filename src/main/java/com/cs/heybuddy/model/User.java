@@ -27,16 +27,16 @@ public class User implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long Id;
 	
-	@Column(name = "name")
+	@Column()
 	private String name;
 	
-	@Column(name = "email")
+	@Column()
 	private String email;
 	
-	@Column(name = "password")
+	@Column()
 	private String password;
 	
-	@Column(name = "phoneNumber")
+	@Column()
 	private String phoneNumber;
 	
 	@ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)

@@ -31,30 +31,54 @@ public class Comment implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long commentId;
     
-    @Column(name = "description", length = 500)
+    @Column(length = 500)
     private String description;
     
-    @Column(name = "type", length = 500)
+    @Column(length = 500)
     private String type;
     
-    @Column(name = "name", length = 500)
+    @Column(length = 500)
     private String name;
     
-    @Column(name = "createdON")
+    @Column()
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
     
-    @OneToOne(cascade = CascadeType.ALL)	
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="createdBy")
     private User createdBy;
     
     
-    @Column(name = "status")
+    @Column()
     private Boolean status;
 
-    @Column(name = "groupId")
+    @Column()
     private Long groupId;
-    
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+
 	public Long getCommentId() {
 		return commentId;
 	}

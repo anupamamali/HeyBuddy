@@ -27,7 +27,7 @@ public class CommentService implements ICommentService {
 
 	public List<Comment> getGroupComment(Long groupId) {
 		// TODO Auto-generated method stub
-		return commentRepository.getByGroupId(groupId);
+		return commentRepository.findByGroupIdOrderByCreatedOnDesc(groupId);
 	}
 	@Override
 	public Comment updateComment(Comment comment) {

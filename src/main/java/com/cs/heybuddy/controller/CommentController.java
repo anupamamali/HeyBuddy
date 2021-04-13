@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cs.heybuddy.model.Comment;
 import com.cs.heybuddy.service.ICommentService;
 
+import java.util.Date;
+
 @RestController
 public class CommentController {
 	
@@ -23,6 +25,7 @@ public class CommentController {
 	@PostMapping("/comment")
 	public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
 
+		comment.setCreatedOn(new Date());
 		 return ResponseEntity.status(HttpStatus.OK)
 					.body(commentService.createComment(comment));
 
