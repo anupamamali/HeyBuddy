@@ -62,7 +62,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			 .antMatchers("/heybuddy/static/**").permitAll()
 			 .antMatchers("/static/**").permitAll()
 			 .antMatchers("/index.html").permitAll()
-			 .antMatchers("/").permitAll()
+			 .antMatchers("/**").permitAll()
+				.antMatchers("/event/**").permitAll()
+				.antMatchers("/user/**").permitAll()
+				.antMatchers("/group/**").permitAll()
+				.antMatchers("/comment/**").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
