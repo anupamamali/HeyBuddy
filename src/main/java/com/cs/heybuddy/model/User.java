@@ -1,14 +1,18 @@
 package com.cs.heybuddy.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 @Entity
@@ -26,9 +30,35 @@ public class User implements Serializable{
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "email")
+	private String email;
+	
+	@Column(name = "password")
+	private String password;
+	
+	@Column(name = "phoneNumber")
+	private String phoneNumber;
+	
 	@ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
 	 private Set<Group> groups;
 	
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "user_roles", 
+				joinColumns = @JoinColumn(name = "user_id"), 
+				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
+	
+	public User(String userName, String email, String password,String phoneNumber) {
+
+           this.email = email;
+           this.name = userName;
+           this.password = password;
+           this.phoneNumber = phoneNumber;
+	}
+	
+	public User() {
+	}
 	public Long getId() {
 		return Id;
 	}
@@ -46,6 +76,32 @@ public class User implements Serializable{
 	}
 	public void setGroups(Set<Group> groups) {
 		this.groups = groups;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Set<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	
 }

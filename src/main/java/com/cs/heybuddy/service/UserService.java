@@ -3,7 +3,6 @@ package com.cs.heybuddy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cs.heybuddy.model.Event;
 import com.cs.heybuddy.model.User;
 import com.cs.heybuddy.repository.IUserRepository;
 @Service("userService")

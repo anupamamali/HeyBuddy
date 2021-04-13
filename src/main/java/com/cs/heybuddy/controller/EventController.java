@@ -2,7 +2,10 @@ package com.cs.heybuddy.controller;
 
 import com.cs.heybuddy.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cs.heybuddy.model.Event;
@@ -28,7 +32,7 @@ public class EventController {
 	IEventService eventService;
 
 	@PostMapping("/event")
-	public ResponseEntity<Event> createEvent(@RequestBody Event event) throws URISyntaxException {
+	public ResponseEntity<Event> createEvent(@RequestBody Event event, @RequestHeader("Authorization") String accessToken) throws URISyntaxException {
 
 		Event newevent = eventService.createEvent(event);
 		if (newevent != null) {
@@ -41,8 +45,13 @@ public class EventController {
 			group.setDescription("Group_" + event.getDescription());
 			group.setCreatedBy(event.getCreatedBy());
 //			group.setCreatedon(new Date());
-
-			ResponseEntity<Group> result = restTemplate.postForEntity(uri, group, Group.class);
+			HttpHeaders headers = new HttpHeaders();
+		    headers.setContentType(MediaType.APPLICATION_JSON);
+		    headers.add("Authorization", accessToken);
+		    HttpEntity<Group> request = new HttpEntity<Group>(group, headers);
+			ResponseEntity<Group> result = restTemplate.postForEntity(uri, request, Group.class);
+			newevent.setGroup(result.getBody());
+			eventService.updateEvent(newevent);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(newevent);
 
