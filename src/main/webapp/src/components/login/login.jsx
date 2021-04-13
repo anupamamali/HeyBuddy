@@ -5,7 +5,10 @@ import axios from 'axios';
 
 
 async function loginUser(credentials) {
-    const res = await axios.get(`/login`);
+    const res = await axios.post(`/api/auth/signin`,{
+        "userName":credentials.username,
+        "password":credentials.password
+    });
     return res.data;
 }
 
@@ -20,7 +23,8 @@ export function Login({setToken}){
             username,
             password
         });
-        setToken(token);
+        localStorage.setItem('user', JSON.stringify(token));
+        setToken({token:token.accessToken});
     }
 
         return (

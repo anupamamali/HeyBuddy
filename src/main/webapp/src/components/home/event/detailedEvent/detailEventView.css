@@ -1,9 +1,12 @@
 .detail-event-container{
     background-color: #f8a488;
+    background-image: url("https://mp.contentserv.com/admin/ImageServer.php?ID=259b3a13745@aiw217&rand=50d3d47f303f534abfdd5c6c375ce26b&lang=1");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .card-view{
-    background-color: #5aa897;
+    background-color: #dff5ef;
     width:100%;
 }
 
@@ -27,5 +30,5 @@
     background: #FFEBCD;
 }
 .detailed-view-user-list li:nth-child(even) {
-    background: #FFEBCD;
+    background: #ffebcd;
 }

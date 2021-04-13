@@ -1,6 +1,8 @@
 import React ,{useState,useEffect}from 'react';
+import axios from "axios";
+import useToken from "../../../login/useToken";
 
-function CommentList() {
+function CommentList({groupId}) {
 
 
     let commentData = ["Hello i am interasted in event",
@@ -18,8 +20,23 @@ function CommentList() {
             <li className="list-group-item">{comment}</li>
         );
     };
+    let LoggedUser = useToken().getLoggedUser()
+    const addComment = async () =>{
 
-    const addComment = () =>{
+        let res = await axios.post(`/comment`,
+            {
+                "commentId": "",
+                "createdBy": {
+                    "name": LoggedUser.userName || "",
+                    "Id": LoggedUser.id|| ""
+                },
+                "description": tempComment,
+                "type": "comment",
+                "name": "comment",
+                "createdOn": null,
+                "status":true,
+                "groupId": groupId
+            })
         setComments([tempComment,...comments]);
         setTempComment("");
     };

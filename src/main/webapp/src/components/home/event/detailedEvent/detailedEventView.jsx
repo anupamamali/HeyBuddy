@@ -57,7 +57,7 @@ const DetailedEventView = () => {
                     </Grid>
                     <Grid item xs={5}>
                         <div className="comment-cotainer text-center">
-                            <CommentList/>
+                            <CommentList groupId={event.groupId}/>
                         </div>
 
                     </Grid>

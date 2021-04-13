@@ -1,6 +1,11 @@
 .about-section {
     padding: 50px;
+    width:100%;
+    height: 100%;
     text-align: center;
     background-color: #474e5d;
     color: white;
+    background-image: url("https://mp.contentserv.com/admin/ImageServer.php?ID=aead7a13750@aiw217&rand=89fa9900890018823f3cb40943919541&lang=1");
+    background-repeat: no-repeat;
+    background-size: cover;
 }

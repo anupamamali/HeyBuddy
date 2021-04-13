@@ -32,7 +32,7 @@ public class EventController {
 	IEventService eventService;
 
 	@PostMapping("/event")
-	public ResponseEntity<Event> createEvent(@RequestBody Event event, @RequestHeader("Authorization") String accessToken) throws URISyntaxException {
+	public ResponseEntity<Event> createEvent(@RequestBody Event event) throws URISyntaxException {
 
 		Event newevent = eventService.createEvent(event);
 		if (newevent != null) {
@@ -45,11 +45,11 @@ public class EventController {
 			group.setDescription("Group_" + event.getDescription());
 			group.setCreatedBy(event.getCreatedBy());
 //			group.setCreatedon(new Date());
-			HttpHeaders headers = new HttpHeaders();
-		    headers.setContentType(MediaType.APPLICATION_JSON);
-		    headers.add("Authorization", accessToken);
-		    HttpEntity<Group> request = new HttpEntity<Group>(group, headers);
-			ResponseEntity<Group> result = restTemplate.postForEntity(uri, request, Group.class);
+//			HttpHeaders headers = new HttpHeaders();
+//		    headers.setContentType(MediaType.APPLICATION_JSON);
+//		    headers.add("Authorization", accessToken);
+//		    HttpEntity<Group> request = new HttpEntity<Group>(group, headers);
+			ResponseEntity<Group> result = restTemplate.postForEntity(uri, group, Group.class);
 			newevent.setGroup(result.getBody());
 			eventService.updateEvent(newevent);
 		}
