@@ -19,6 +19,7 @@ import com.cs.heybuddy.model.Group;
 import com.cs.heybuddy.service.ICommentService;
 import com.cs.heybuddy.service.IEventService;
 import com.cs.heybuddy.service.IGroupService;
+import com.cs.heybuddy.service.IUserService;
 
 @RestController
 public class GroupController {
@@ -27,12 +28,34 @@ public class GroupController {
 	IGroupService groupService;
 	@Autowired
 	ICommentService commentService;
+	@Autowired
+	IUserService  userService;
 
 	@PostMapping("/group")
 	public ResponseEntity<Group> createGroup(@RequestBody Group group) {
 
 		 return ResponseEntity.status(HttpStatus.OK)
 					.body(  groupService.createGroup(group));
+
+	}
+	
+	@PutMapping("/group/users/{id}/{userId}")
+	public ResponseEntity<Group> addUserToGroup(@PathVariable(value = "id") Long id, @PathVariable(value = "userId") Long userId) {
+
+		Group group= groupService.getGroup(id);
+		group.getUsers().add(userService.getUser(userId));
+		 return ResponseEntity.status(HttpStatus.OK)
+					.body(groupService.updateGroup(group));
+
+	}
+	
+	@DeleteMapping("/group/users/{id}/{userId}")
+	public ResponseEntity<Group> deleteUserFromGroup(@PathVariable(value = "id") Long id, @PathVariable(value = "userId") Long userId) {
+
+		Group group= groupService.getGroup(id);
+		group.getUsers().remove(userService.getUser(userId));
+		 return ResponseEntity.status(HttpStatus.OK)
+					.body(groupService.updateGroup(group));
 
 	}
 	

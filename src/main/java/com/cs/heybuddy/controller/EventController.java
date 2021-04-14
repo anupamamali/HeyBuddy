@@ -44,6 +44,7 @@ public class EventController {
 			group.setName("Group_" + event.getName());
 			group.setDescription("Group_" + event.getDescription());
 			group.setCreatedBy(event.getCreatedBy());
+			group.getUsers().add(event.getCreatedBy());
 			group = groupService.createGroup(group);
 			newevent.setGroup(group);
 			eventService.updateEvent(newevent);

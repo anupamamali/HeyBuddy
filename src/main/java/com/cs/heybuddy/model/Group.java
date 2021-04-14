@@ -3,6 +3,7 @@ package com.cs.heybuddy.model;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -119,6 +120,9 @@ public class Group implements Serializable {
 	}
 
 	public Set<User> getUsers() {
+		if(users == null) {
+			users = new HashSet<User>();
+		}
 		return users;
 	}
 
