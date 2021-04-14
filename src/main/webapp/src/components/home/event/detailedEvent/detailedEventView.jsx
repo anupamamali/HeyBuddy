@@ -9,6 +9,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import swal from "sweetalert";
 import {EVENT_TYPE, imageMapper} from "../imageMapper";
+import UseToken from "../../../login/useToken"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const DetailedEventView = () => {
+    let userId = UseToken().getLoggedUser().id;
     const [event, setEvent] = useState({
         name: "",
         type: "",
@@ -27,9 +29,9 @@ const DetailedEventView = () => {
     const classes = useStyles();
 
     useEffect(() => {
-        loadUser();
+        loadEventDetails();
     }, []);
-    const loadUser = async () => {
+    const loadEventDetails = async () => {
         const res = await axios.get(`${id}`);
         setEvent(res.data);
     };
@@ -37,11 +39,37 @@ const DetailedEventView = () => {
         width: "15rem"
     }
 
-    const joinSuccessfully = () => {
+    const joinSuccessfully = async () => {
+
+        await axios.put(`/group/users/${event.group.groupId}/${userId}`);
+
+        loadEventDetails();
+
         swal({
             title: "User Subscribed Successfully ",
             icon: "success",
         });
+    }
+
+    const unJoinSuccessfully = async () => {
+        await axios.delete(`/group/users/${event.group.groupId}/${userId}`);
+
+        loadEventDetails();
+
+        swal({
+            title: "User UnSubscribed Successfully ",
+            icon: "success",
+        });
+    }
+
+    const checkSubscribtion = () => {
+        if (event && event.group) {
+
+            event.group.users.some((user) => {
+               return user.id == userId;
+            })
+        }
+        return false;
     }
 
     return (<div className="detail-event-container">
@@ -68,18 +96,23 @@ const DetailedEventView = () => {
                                 <p className="card-text">{event.description}</p>
                                 <hr/>
                                 <div className="text-center">
-                                    <button type="button" className="btn btn-primary" onClick={joinSuccessfully}>Join
-                                    </button>
+                                    {checkSubscribtion ?
+                                        <button type="button" className="btn btn-primary"
+                                                onClick={unJoinSuccessfully}>Unjoin</button> :
+                                        <button type="button" className="btn btn-primary"
+                                                onClick={joinSuccessfully}>Join</button>
+                                    }
                                 </div>
                             </div>
                         </div>
                     </Grid>
                     <Grid item xs={2}>
-                        <UserList/>
+
+                        {(event && event.group) ? <UserList userList={event.group.users}/> : null}
                     </Grid>
                     <Grid item xs={5}>
                         <div className="comment-cotainer text-center">
-                            {(event && event.group) ? <CommentList group={event.group}/> : null}
+                            {(event && event.group && checkSubscribtion) ? <CommentList group={event.group}/> : null}
                         </div>
 
                     </Grid>
