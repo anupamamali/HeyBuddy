@@ -63,11 +63,22 @@ const DetailedEventView = () => {
     }
 
     const checkSubscribtion = () => {
-        if (event && event.group) {
 
-            event.group.users.some((user) => {
-               return user.id == userId;
-            })
+        if (event && event.group && event.group.users) {
+            // event.group.users.some((user) => {
+            //    return user.id === userId;
+            // })
+            //
+            // event.group.users.forEach((user) => {
+            //     if(user.id === userId)
+            // })
+
+            let i;
+            for (i = 0; i < event.group.users.length; i++) {
+                if(userId === event.group.users[i].id){
+                    return true
+                }
+            }
         }
         return false;
     }
@@ -96,7 +107,7 @@ const DetailedEventView = () => {
                                 <p className="card-text">{event.description}</p>
                                 <hr/>
                                 <div className="text-center">
-                                    {checkSubscribtion ?
+                                    {checkSubscribtion == false ?
                                         <button type="button" className="btn btn-primary"
                                                 onClick={unJoinSuccessfully}>Unjoin</button> :
                                         <button type="button" className="btn btn-primary"
