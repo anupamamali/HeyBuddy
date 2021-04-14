@@ -1,6 +1,7 @@
 import React ,{useState,useEffect}from 'react';
 import axios from "axios";
 import useToken from "../../../login/useToken";
+import swal from "sweetalert";
 
 function CommentList({group}) {
 
@@ -21,15 +22,16 @@ function CommentList({group}) {
     
     const singleUser = (comment) => {
         return (
-            <li className="list-group-item">
-            <span className="comment-user">  {comment.createdBy.name}</span>   : {comment.description}
+            <li className="list-group-item comment singleUser-comment">
+                <span className="input-group-text" id="basic-addon1">{comment.createdBy.name}</span>
+                <span>{comment.description}</span>
             </li>
         );
     };
     let LoggedUser = useToken().getLoggedUser()
     const addComment = async () =>{
 
-        let res = await axios.post(`/comment`,
+        await axios.post(`/comment`,
             {
                 "commentId": "",
                 "createdBy": {
@@ -42,7 +44,13 @@ function CommentList({group}) {
                 "createdOn": null,
                 "status":true,
                 "groupId": group.groupId
-            })
+            }).then(res => {
+            swal({
+                title: "Comment Added Successfully",
+                icon: "success",
+            });
+        })
+
         loadCmt();
 
         setTempComment("");

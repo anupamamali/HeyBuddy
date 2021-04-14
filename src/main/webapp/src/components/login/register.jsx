@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import loginImg from "../../login.svg";
 import axios from "axios";
+import swal from "sweetalert";
 
 
 
@@ -14,18 +15,67 @@ export function Register(props) {
 
     const handleSubmit = async e => {
         // e.preventDefault();
-            const res = await axios.post(`/api/auth/signup`,
-            {
-                "userName":username,
-                "password":password,
-                "phoneNumber":phoneNumber,
-                "email":email,
-                "roles":[]
+        if(username !="" && password !="" && email !="" && phoneNumber !=""){
+            await axios.post(`/api/auth/signup`,
+                {
+                    "userName":username,
+                    "password":password,
+                    "phoneNumber":phoneNumber,
+                    "email":email,
+                    "roles":[]
+                }).then(res => {
+                if(res.data == "User registered successfully!"){
+                    swal({
+                        title: "User Registered Successfully",
+                        icon: "success",
+                    });
+                    setUserName("");
+                    setPassword("");
+                    setEmail("");
+                    setPhoneNumber("");
+                }
+                console.log(res.data)
             })
+                .catch(err => {
+                    console.log(err.response.data.error);
+                    console.log(err.response.data);
+                    console.log(err.response);
+                    function alertMsg(text){
+                        swal({
+                            title: "Please provide the valid info",
+                            text: text,
+                            icon: "warning",
+                        });
+                    }
+                    if (err.response) {
+                        if(err.response.data == "Error: Username is already taken!"){
+                            alertMsg("Username is already taken!",);
+                        } else if(err.response.data == "Error: Email is already in use!"){
+                            alertMsg("Email is already in use!",);
+                        }
+                        else{
+                            alertMsg("");
+                        }
+                    } else if (err.request) {
+                        // client never received a response, or request never left
+                    } else {
+                        // anything else
+                    }
+                })
+        }else{
+            swal({
+                title: "Please provide the valid info",
+                text: "Feilds can not be empty",
+                icon: "warning",
+            });
+        }
+
+
     }
 
     return (
         <div className="base-container" ref={props.containerRef}>
+
             <div className="header">Register</div>
             <div className="content">
                 <div className="image">
