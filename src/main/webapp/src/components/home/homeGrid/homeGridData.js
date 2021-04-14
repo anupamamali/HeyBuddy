@@ -6,13 +6,14 @@ import foundAndLost from './images/foundAndLost.png'
 import carpool from './images/carpool.png';
 import knowBuddy from './images/knowBuddy.png';
 import feedback from './images/feedback.png'
+import anonymous from './images/anonymous.png';
 
 export const sectionData = [
     {
         id: 1,
-        name: "Buy and Sell",
-        type: "buySell",
-        image: buy
+        name: "Anonymous Chatting",
+        type: "anonymous",
+        image: anonymous
     },
     {
         id: 2,
@@ -39,15 +40,21 @@ export const sectionData = [
         image: carpool
     },
     {
-        id: 3,
+        id: 6,
         name: "Know Your Buddy",
         type: "knowBuddy",
         image: knowBuddy
     },
     {
-        id: 3,
+        id: 7,
         name: "Feedback",
         type: "feedback",
         image: feedback
+    },
+    {
+        id: 8,
+        name: "Buy and Sell",
+        type: "buySell",
+        image: buy
     }
 ];

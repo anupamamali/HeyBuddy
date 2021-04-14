@@ -2,14 +2,32 @@
 import React ,{useState}from "react";
 import loginImg from "../../login.svg";
 import axios from 'axios';
+import swal from 'sweetalert';
 
 
 async function loginUser(credentials) {
-    const res = await axios.post(`/api/auth/signin`,{
+    let resData="";
+    await axios.post(`/api/auth/signin`,{
         "userName":credentials.username,
         "password":credentials.password
-    });
-    return res.data;
+    }).then(res => {
+        resData = res.data;
+    })
+        .catch(err => {
+            console.log(err.response.data.error);
+            if (err.response) {
+                swal({
+                    title: "Invalid User Name or Password !!!",
+                    icon: "error",
+                });
+            } else if (err.request) {
+                // client never received a response, or request never left
+            } else {
+                // anything else
+            }
+        })
+    return resData;
+
 }
 
 export function Login({setToken}){

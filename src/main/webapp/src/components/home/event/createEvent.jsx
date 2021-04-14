@@ -32,6 +32,7 @@ const CreateEvent = () => {
     return (
         <div className="container">
             <div className="w-75 mx-auto shadow p-5">
+                <button type="button" className="btn btn-info" onClick={() => history.push('/event')}>Back</button>
                 <h2 className="text-center mb-4">Event Information</h2>
                 <form onSubmit={e => onSubmit(e)}>
                     <div className="form-group">

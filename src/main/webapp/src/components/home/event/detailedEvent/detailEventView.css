@@ -36,3 +36,11 @@
 .comment-user{
     color: #ef3737;
 }
+.singleUser-comment{
+    display:flex;
+    justify-content: space-between;
+}
+
+.event-header{
+    color: #80ced6;
+}
