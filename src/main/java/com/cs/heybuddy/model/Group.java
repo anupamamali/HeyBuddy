@@ -58,7 +58,7 @@ public class Group implements Serializable {
     @JoinTable(
       name = "USERS_GROUPS",
       joinColumns = @JoinColumn(name = "groupId"),
-      inverseJoinColumns = @JoinColumn(name = "Id"))
+      inverseJoinColumns = @JoinColumn(name = "id"))
     private Set<User> users;
 
 	public Long getGroupId() {

@@ -24,6 +24,7 @@ const DetailedEventView = () => {
         name: "",
         type: "",
     });
+   const [sub, setSub] = useState(0);
     const history = useHistory();
     const {id} = useParams();
     const classes = useStyles();
@@ -33,7 +34,9 @@ const DetailedEventView = () => {
     }, []);
     const loadEventDetails = async () => {
         const res = await axios.get(`${id}`);
+        checkSubscribtion(res.data);
         setEvent(res.data);
+        
     };
     const style = {
         width: "15rem"
@@ -62,25 +65,27 @@ const DetailedEventView = () => {
         });
     }
 
-    const checkSubscribtion = () => {
+    const checkSubscribtion = (event1) => {
 
-        if (event && event.group && event.group.users) {
-            // event.group.users.some((user) => {
+        if (event1 && event1.group && event1.group.users) {
+            // event1.group.users.some((user) => {
             //    return user.id === userId;
             // })
             //
-            // event.group.users.forEach((user) => {
+            // event1.group.users.forEach((user) => {
             //     if(user.id === userId)
             // })
 
             let i;
-            for (i = 0; i < event.group.users.length; i++) {
-                if(userId === event.group.users[i].id){
-                    return true
+            for (i = 0; i < event1.group.users.length; i++) {
+                if(userId === event1.group.users[i].id){
+                   setSub(1);
+                    return;
                 }
             }
         }
-        return false;
+        setSub(0);
+        return ;
     }
 
     return (<div className="detail-event-container">
@@ -107,7 +112,7 @@ const DetailedEventView = () => {
                                 <p className="card-text">{event.description}</p>
                                 <hr/>
                                 <div className="text-center">
-                                    {checkSubscribtion == false ?
+                                    {sub === 1 ?
                                         <button type="button" className="btn btn-primary"
                                                 onClick={unJoinSuccessfully}>Unjoin</button> :
                                         <button type="button" className="btn btn-primary"
@@ -123,7 +128,7 @@ const DetailedEventView = () => {
                     </Grid>
                     <Grid item xs={5}>
                         <div className="comment-cotainer text-center">
-                            {(event && event.group && checkSubscribtion) ? <CommentList group={event.group}/> : null}
+                            {(event && event.group && sub === 1 ) ? <CommentList group={event.group}/> : null}
                         </div>
 
                     </Grid>

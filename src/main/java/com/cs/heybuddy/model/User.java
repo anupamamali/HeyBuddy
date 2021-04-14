@@ -25,7 +25,7 @@ public class User implements Serializable{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long Id;
+    private Long id;
 	
 	@Column()
 	private String name;
@@ -38,9 +38,6 @@ public class User implements Serializable{
 	
 	@Column()
 	private String phoneNumber;
-	
-	@ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
-	 private Set<Group> groups;
 	
 	
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -59,24 +56,22 @@ public class User implements Serializable{
 	
 	public User() {
 	}
+	
 	public Long getId() {
-		return Id;
+		return id;
 	}
-	public void setUserId(Long Id) {
-		this.Id = Id;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Set<Group> getGroups() {
-		return groups;
-	}
-	public void setGroups(Set<Group> groups) {
-		this.groups = groups;
-	}
+	
 	public String getEmail() {
 		return email;
 	}
