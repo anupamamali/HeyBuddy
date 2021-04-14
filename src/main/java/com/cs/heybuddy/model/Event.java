@@ -46,7 +46,7 @@ public class Event implements Serializable{
     private Date createdOn;
     
     @OneToOne(cascade = CascadeType.ALL)	
-    @JoinColumn()
+    @JoinColumn(name = "id")
     private User createdBy;
 
   

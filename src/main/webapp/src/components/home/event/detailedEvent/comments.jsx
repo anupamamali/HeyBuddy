@@ -28,7 +28,7 @@ function CommentList({group}) {
             </li>
         );
     };
-    let LoggedUser = useToken().getLoggedUser()
+    let LoggedUser = useToken().getLoggedUser();
     const addComment = async () =>{
 
         await axios.post(`/comment`,
@@ -36,7 +36,7 @@ function CommentList({group}) {
                 "commentId": "",
                 "createdBy": {
                     "name": LoggedUser.userName || "",
-                    "Id": LoggedUser.id|| ""
+                    "id": LoggedUser.id|| ""
                 },
                 "description": tempComment,
                 "type": "comment",

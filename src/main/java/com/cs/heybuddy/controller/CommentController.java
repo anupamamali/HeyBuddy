@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cs.heybuddy.model.Comment;
+import com.cs.heybuddy.model.User;
 import com.cs.heybuddy.service.ICommentService;
+import com.cs.heybuddy.service.IUserService;
 
 import java.util.Date;
 
@@ -21,10 +23,14 @@ public class CommentController {
 	
 	@Autowired
 	ICommentService commentService;
+	@Autowired
+	IUserService userService;
 
 	@PostMapping("/comment")
 	public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
-
+        Long userId = comment.getCreatedBy().getId();
+        User user = userService.getUser(userId);
+        comment.setCreatedBy(user);
 		comment.setCreatedOn(new Date());
 		 return ResponseEntity.status(HttpStatus.OK)
 					.body(commentService.createComment(comment));

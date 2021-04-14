@@ -1,6 +1,8 @@
 package com.cs.heybuddy.controller;
 
 import com.cs.heybuddy.model.Group;
+import com.cs.heybuddy.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cs.heybuddy.model.Event;
 import com.cs.heybuddy.service.IEventService;
 import com.cs.heybuddy.service.IGroupService;
+import com.cs.heybuddy.service.IUserService;
+import com.cs.heybuddy.service.UserService;
 
 import org.springframework.web.client.RestTemplate;
 
@@ -34,17 +38,22 @@ public class EventController {
 	IEventService eventService;
 	@Autowired
 	IGroupService groupService;
+	@Autowired
+	IUserService userService;
 
 	@PostMapping("/event")
 	public ResponseEntity<Event> createEvent(@RequestBody Event event) throws URISyntaxException {
-
+		User userObj = userService.getUser(event.getCreatedBy().getId());
+		event.setCreatedBy(userObj);
 		Event newevent = eventService.createEvent(event);
 		if (newevent != null) {
 			Group group = new Group();
 			group.setName("Group_" + event.getName());
 			group.setDescription("Group_" + event.getDescription());
-			group.setCreatedBy(event.getCreatedBy());
-			group.getUsers().add(event.getCreatedBy());
+			
+		
+			group.setCreatedBy(userObj);
+			group.getUsers().add(userObj);
 			group = groupService.createGroup(group);
 			newevent.setGroup(group);
 			eventService.updateEvent(newevent);

@@ -4,6 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import './header.css';
 import { faSmileWink,faComments,faPeopleCarry} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import UseToken from "../../login/useToken"
 
 const useStyles = makeStyles(() => ({
     header: {
@@ -47,6 +48,7 @@ const headersData = [
 
 export default function Header({removeToken}) {
     const { header ,menuButton,toolbar, fontFamily} = useStyles();
+     let userName = UseToken().getLoggedUser().userName;
     const displayDesktop = () => {
         return (
             <Toolbar className={toolbar}>
@@ -57,7 +59,7 @@ export default function Header({removeToken}) {
 
     const femmecubatorLogo = (
         <Typography className={fontFamily}>
-            <FontAwesomeIcon icon={faComments}/>&nbsp;&nbsp;Hey Buddy
+            <FontAwesomeIcon icon={faComments}/>&nbsp;&nbsp;Hey Buddy :<span className ="header-user" > {userName} </span>
         </Typography>
     );
 

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 @Entity
 @Table(name="USER_HEYBUDDY")
 public class User implements Serializable{
@@ -27,7 +27,7 @@ public class User implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-	@Column()
+	@Column(nullable = false)
 	private String name;
 	
 	@Column()

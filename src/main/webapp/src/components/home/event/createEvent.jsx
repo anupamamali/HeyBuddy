@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import axios from 'axios'
 import { useHistory }  from "react-router-dom";
 import {EVENT_TYPE} from "./imageMapper"
+import UseToken from "../../login/useToken"
 
 const CreateEvent = () => {
+ let userId = UseToken().getLoggedUser().id;
     let history = useHistory();
     const [event, setEvent] = useState({
         name: "",
@@ -25,7 +27,7 @@ const CreateEvent = () => {
     const onSubmit = async e => {
         e.preventDefault();
         await axios.post("/event", {...event, createdBy:{
-                "name": "xyz"
+                "id": userId
             }});
         history.push("/event");
     };
