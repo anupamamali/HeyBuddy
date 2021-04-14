@@ -1,6 +1,6 @@
 import React from 'react';
 
-function UserList() {
+function UserList({userList}) {
 
     let users = ["Raj","Kunal","Dhanusri","Himani"]
     const singleUser = (user) => {
@@ -13,7 +13,7 @@ function UserList() {
         <div className="detailed-view-user-list">
             <ul className="list-group">
                 <li className="list-group-item list-group-item-success">Interested Users </li>
-                {users.map(user => singleUser(user))}
+                {userList.map(user => singleUser(user.name))}
             </ul>
         </div>
 
